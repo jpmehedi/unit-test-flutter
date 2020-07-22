@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      title: 'Unit test',
-      theme: ThemeData(primaryColor: Colors.blueAccent),
-      home: MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Reversi',
+      theme: ThemeData(
+        primaryColor: Colors.blueAccent,
+      ),
+      home: HomePage(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   TextEditingController _controller;
   String _reverse;
 
@@ -31,9 +38,10 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         title: Text('Unit Test'),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextField(
               controller: _controller,
@@ -45,9 +53,6 @@ class _MyAppState extends State<MyApp> {
               height: 20,
             ),
             if (_reverse != null) ...[
-              SizedBox(
-                height: 10,
-              ),
               Text(
                 _reverse,
                 style: TextStyle(
@@ -60,16 +65,15 @@ class _MyAppState extends State<MyApp> {
                 height: 10,
               )
             ],
-            FlatButton(
+            RaisedButton(
               color: Colors.blueAccent,
               onPressed: () {
-                print("Pressed");
                 if (_controller.text.isEmpty) return;
                 setState(() {
                   _reverse = reverseString(_controller.text);
                 });
               },
-              child: Text("Pressed"),
+              child: Text("Prasseed"),
             ),
           ],
         ),
